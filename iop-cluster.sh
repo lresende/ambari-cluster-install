@@ -30,7 +30,7 @@ then
   exit 1
 fi
 
-REPOSITORY=http://birepo-build.svl.ibm.com/repos/Ambari/RHEL7/x86_64/2.1.0/4.1.0.0_IOP_GM
+#REPOSITORY=http://birepo-build.svl.ibm.com/repos/Ambari/RHEL7/x86_64/2.1.0/4.1.0.0_IOP_GM
 
 HOSTS=(bdvs268.svl.ibm.com bdvs269.svl.ibm.com bdvs270.svl.ibm.com bdvs271.svl.ibm.com)
 CLUSTER_MASTER=bdvs268.svl.ibm.com
@@ -62,8 +62,8 @@ if [ "$1" = "--all"  -o  "$1" = "--install"  ]
 then
   # setup ambari repository
   yum clean all
-  cd /etc/yum.repos.d && curl -O curl -O $REPOSITORY/ambari.repo > ambari.repo
-  #cp etc/yum.repos.d/ambari.repo /etc/yum.repos.d/ambari.repo
+  #cd /etc/yum.repos.d && curl -O curl -O $REPOSITORY/ambari.repo > ambari.repo
+  cp etc/yum.repos.d/ambari.repo /etc/yum.repos.d/ambari.repo
 
   # ambari server setup
   yum -y install ambari-server
