@@ -51,12 +51,14 @@ then
     ssh root@${i} "rm -rf /var/log/knox"
     ssh root@${i} "yum -y remove ambari-agent"
     ssh root@${i} "rm -rf /etc/ambari-agent"
+    ssh root@${i} "rpm -e ambari-agent"
   done
   yum -y remove ambari-server
   rm -rf /etc/ambari-server
   su - postgres -c "dropdb ambari"
   su - postgres -c "dropdb ambarirca"
   yum -y remove postgresql
+  rpm -e ambari-server
 fi
 
 ## Install ambari
