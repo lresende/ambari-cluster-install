@@ -48,6 +48,7 @@ then
     ssh root@${i} "rm -rf /etc/yum.repos.d/IOP.repo"
     ssh root@${i} "rm -rf /etc/yum.repos.d/IOP-UTILS.repo"
     ssh root@${i} "rm -rf /etc/yum.repos.d/ambari.repo"
+    ssh root@${i} "rm -rf /var/log/ambari-agent"
     ssh root@${i} "rm -rf /var/log/knox"
     ssh root@${i} "yum -y remove ambari-agent"
     ssh root@${i} "rm -rf /etc/ambari-agent"
@@ -55,6 +56,7 @@ then
   done
   yum -y remove ambari-server
   rm -rf /etc/ambari-server
+  rm -rf /var/log/ambari-server/
   su - postgres -c "dropdb ambari"
   su - postgres -c "dropdb ambarirca"
   yum -y remove postgresql
