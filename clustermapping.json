@@ -16,7 +16,9 @@
                 {
                     "fqdn": "#DATA_1",
                     "fqdn": "#DATA_2",
-                    "fqdn": "#DATA_3"
+                    "fqdn": "#DATA_3",
+                    "fqdn": "#DATA_4",
+                    "fqdn": "#DATA_5"
                 }
             ]
         }

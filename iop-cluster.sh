@@ -32,11 +32,13 @@ fi
 
 #REPOSITORY=http://birepo-build.svl.ibm.com/repos/Ambari/RHEL7/x86_64/2.1.0/4.1.0.0_IOP_GM
 
-HOSTS=(bdvs268.svl.ibm.com bdvs269.svl.ibm.com bdvs270.svl.ibm.com bdvs271.svl.ibm.com)
-CLUSTER_MASTER=bdvs268.svl.ibm.com
-CLUSTER_DATA_1=bdvs269.svl.ibm.com
-CLUSTER_DATA_2=bdvs270.svl.ibm.com
-CLUSTER_DATA_3=bdvs271.svl.ibm.com
+HOSTS=(bdavm317.svl.ibm.com bdavm318.svl.ibm.com bdavm319.svl.ibm.com bdavm280.svl.ibm.com davm281.svl.ibm.com bdavm509.svl.ibm.com bdavm317.svl.ibm.com)
+CLUSTER_MASTER=bdavm317.svl.ibm.com
+CLUSTER_DATA_1=bdavm318.svl.ibm.com
+CLUSTER_DATA_2=bdavm319.svl.ibm.com
+CLUSTER_DATA_3=bdavm280.svl.ibm.com
+CLUSTER_DATA_4=davm281.svl.ibm.com
+CLUSTER_DATA_5=bdavm509.svl.ibm.com
 
 ## Cleanup
 if [ "$1" = "--all"  -o  "$1" = "--uninstall"  ]
@@ -100,6 +102,8 @@ then
   sed -i.bak "s@#DATA_1@$CLUSTER_DATA_1@g" hostmapping.json
   sed -i.bak "s@#DATA_2@$CLUSTER_DATA_2@g" hostmapping.json
   sed -i.bak "s@#DATA_3@$CLUSTER_DATA_3@g" hostmapping.json
+  sed -i.bak "s@#DATA_4@$CLUSTER_DATA_4@g" hostmapping.json
+  sed -i.bak "s@#DATA_5@$CLUSTER_DATA_5@g" hostmapping.json
 
   curl -H "X-Requested-By: ambari" -X GET -u admin:admin http://localhost:8081/api/v1/hosts
   sleep 3s
