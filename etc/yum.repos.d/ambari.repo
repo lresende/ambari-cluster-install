@@ -1,5 +1,5 @@
-[BI_AMBARI-2.1.0-20150821_2047]
-name=ambari-2.1.0-20150821_2047
+[BI_AMBARI-2.1.0]
+name=ambari-2.1.0
 baseurl=https://ibm-open-platform.ibm.com/repos/Ambari/rhel/6/x86_64/2.1.x/GA/2.1/
 enabled=1
 gpgcheck=1
