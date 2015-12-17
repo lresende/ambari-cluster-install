@@ -32,13 +32,19 @@ fi
 
 #REPOSITORY=http://birepo-build.svl.ibm.com/repos/Ambari/RHEL7/x86_64/2.1.0/4.1.0.0_IOP_GM
 
-HOSTS=(bdavm317.svl.ibm.com bdavm318.svl.ibm.com bdavm319.svl.ibm.com bdavm280.svl.ibm.com davm281.svl.ibm.com bdavm509.svl.ibm.com bdavm317.svl.ibm.com)
-CLUSTER_MASTER=bdavm317.svl.ibm.com
-CLUSTER_DATA_1=bdavm318.svl.ibm.com
-CLUSTER_DATA_2=bdavm319.svl.ibm.com
-CLUSTER_DATA_3=bdavm280.svl.ibm.com
-CLUSTER_DATA_4=davm281.svl.ibm.com
-CLUSTER_DATA_5=bdavm509.svl.ibm.com
+HOSTS=(bdavm317.svl.ibm.com bdavm318.svl.ibm.com bdavm319.svl.ibm.com bdavm280.svl.ibm.com bdavm281.svl.ibm.com bdavm509.svl.ibm.com)
+HOSTS=(bdavm317.svl.ibm.com)
+
+CLUSTER_MASTER=${HOSTS[0]}
+CLUSTER_NODES=${HOSTS[@]:1}
+CLUSTER_SIZE=${#HOSTS[@]}
+NODES=("${HOSTS[@]:1}") ##Workaround to get node size
+CLUSTER_NODE_SIZE=${#NODES[@]}
+
+echo ">>> Cluster Configuration "
+echo "Master Node..: $CLUSTER_MASTER"
+echo "Data Nodes...: $CLUSTER_NODES"
+echo ">>> "
 
 ## Cleanup
 if [ "$1" = "--all"  -o  "$1" = "--uninstall"  ]
@@ -99,23 +105,46 @@ fi
 if [ "$1" = "--all"  -o  "$1" = "--deploy"  ]
 then
   sed -i.bak "s@#MASTER@$CLUSTER_MASTER@g" hostmapping.json
-  sed -i.bak "s@#DATA_1@$CLUSTER_DATA_1@g" hostmapping.json
-  sed -i.bak "s@#DATA_2@$CLUSTER_DATA_2@g" hostmapping.json
-  sed -i.bak "s@#DATA_3@$CLUSTER_DATA_3@g" hostmapping.json
-  sed -i.bak "s@#DATA_4@$CLUSTER_DATA_4@g" hostmapping.json
-  sed -i.bak "s@#DATA_5@$CLUSTER_DATA_5@g" hostmapping.json
+
+  if [ "$CLUSTER_SIZE" -gt 1 ]
+  then
+      # This is a CLUSTER
+      echo "Processing Cluster Host Mappings "
+      HOST_MAPPING=", {\"name\": \"slave\", \"hosts\": [ { "
+      COUNTER=1
+      for i in ${CLUSTER_NODES[@]}; do
+        HOST_MAPPING="$HOST_MAPPING \"fqdn\":\"${i}\""
+        if [ $COUNTER -lt $CLUSTER_NODE_SIZE ]
+          then
+            HOST_MAPPING="$HOST_MAPPING,"
+            let COUNTER=COUNTER+1
+          fi
+      done
+      HOST_MAPPING="$HOST_MAPPING } ] }"
+      echo ">>>" $HOST_MAPPING
+      sed -i.bak "s@#NODES@$CLUSTER_DATA_1@g" hostmapping.json
+  else
+      # This is a SINGLE NODE
+      echo "Processing Single Node Host Mappings"
+      sed -i.bak "s@#NODES@@g" hostmapping.json
+  fi
 
   curl -H "X-Requested-By: ambari" -X GET -u admin:admin http://localhost:8081/api/v1/hosts
   sleep 3s
   curl -H "X-Requested-By: ambari" -X GET -u admin:admin http://localhost:8081/api/v1/blueprints
   sleep 3s
-  curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_multi_node.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
+  if [ "$CLUSTER_SIZE" = 1 ]
+  then
+    curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_single_node.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
+  else
+    curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_multi_node.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
+  fi
   sleep 3s
   curl -H "X-Requested-By: ambari" -X GET -u admin:admin http://localhost:8081/api/v1/blueprints
   sleep 3s
   curl -H "X-Requested-By: ambari" -X GET -u admin:admin http://localhost:8081/api/v1/clusters
   sleep 3s
-  curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @clustermapping.json http://localhost:8081/api/v1/clusters/iop
+  curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @hostmapping.json http://localhost:8081/api/v1/clusters/iop
 
   ## wait for finishing deploying
   while true;

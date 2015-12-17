@@ -1,0 +1,16 @@
+{
+    "blueprint": "iop",
+    "default_password": "passw0rd",
+    "host_groups": [
+        {
+            "name": "master",
+            "hosts": [
+                {
+                    "fqdn": "#MASTER"
+                }
+            ]
+        }
+        
+        #NODES
+    ]
+}
