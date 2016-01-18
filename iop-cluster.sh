@@ -91,7 +91,7 @@ then
   for i in ${HOSTS[@]}; do
     # setup ambari repository
     ssh root@${i} "yum clean all"
-    cat etc/yum.repos.d/ambari.repo | ssh root@${i} "cat >> /etc/yum.repos.d/ambari.repo"
+    cat etc/yum.repos.d/ambari.repo | ssh root@${i} "cat > /etc/yum.repos.d/ambari.repo"
     # ambari agent setup
     ssh root@${i} "yum -y install ambari-agent"
     ssh root@${i} "sed -i.bak \"s@hostname=localhost@hostname=$CLUSTER_MASTER@g\" /etc/ambari-agent/conf/ambari-agent.ini"
