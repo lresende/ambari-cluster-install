@@ -30,10 +30,9 @@ then
   exit 1
 fi
 
-#REPOSITORY=http://birepo-build.svl.ibm.com/repos/Ambari/RHEL7/x86_64/2.1.0/4.1.0.0_IOP_GM
-
-HOSTS=(bdavm317.svl.ibm.com bdavm318.svl.ibm.com bdavm319.svl.ibm.com bdavm280.svl.ibm.com bdavm281.svl.ibm.com bdavm509.svl.ibm.com)
-HOSTS=(bdavm317.svl.ibm.com)
+#HOSTS=(bdavm317.svl.ibm.com bdavm318.svl.ibm.com bdavm319.svl.ibm.com bdavm280.svl.ibm.com bdavm281.svl.ibm.com bdavm509.svl.ibm.com)
+LOCALHOST="$(/bin/hostname -f)"
+HOSTS=("$LOCALHOST")
 
 CLUSTER_MASTER=${HOSTS[0]}
 CLUSTER_NODES=${HOSTS[@]:1}
