@@ -10,9 +10,8 @@ git clone https://github.com/lresende/ambari-cluster-install.git
 cd ambari-cluster-install
 ```
 
-Update information related to your cluster in iop-cluster.sh :
+**Update information related to your cluster in iop-cluster.sh :**
 
-Repository: IOP Repository URL 
 Hosts     : A list of FQDN for all cluster nodes
 
 ## Installing Ambary and deploying the cluster 
