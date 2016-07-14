@@ -30,9 +30,9 @@ then
   exit 1
 fi
 
-#HOSTS=(bdavm317.svl.ibm.com bdavm318.svl.ibm.com bdavm319.svl.ibm.com bdavm280.svl.ibm.com bdavm281.svl.ibm.com bdavm509.svl.ibm.com)
-LOCALHOST="$(/bin/hostname -f)"
-HOSTS=("$LOCALHOST")
+HOSTS=(bdavm317.svl.ibm.com bdavm318.svl.ibm.com bdavm319.svl.ibm.com bdavm280.svl.ibm.com bdavm281.svl.ibm.com bdavm509.svl.ibm.com)
+#LOCALHOST="$(/bin/hostname -f)"
+#HOSTS=("$LOCALHOST")
 
 CLUSTER_MASTER=${HOSTS[0]}
 CLUSTER_NODES=${HOSTS[@]:1}
@@ -41,8 +41,9 @@ NODES=("${HOSTS[@]:1}") ##Workaround to get node size
 CLUSTER_NODE_SIZE=${#NODES[@]}
 
 echo ">>> Cluster Configuration "
-echo "Master Node..: $CLUSTER_MASTER"
-echo "Data Nodes...: $CLUSTER_NODES"
+echo "Cluster Nodes.: ${HOSTS[@]}"
+echo "Master Node...: $CLUSTER_MASTER"
+echo "Data Nodes....: $CLUSTER_NODES"
 echo ">>> "
 
 ## Cleanup
@@ -109,19 +110,19 @@ then
   then
       # This is a CLUSTER
       echo "Processing Cluster Host Mappings "
-      HOST_MAPPING=", {\"name\": \"slave\", \"hosts\": [ { "
+      HOST_MAPPING=", {\"name\": \"slave\", \"hosts\": [ "
       COUNTER=1
       for i in ${CLUSTER_NODES[@]}; do
-        HOST_MAPPING="$HOST_MAPPING \"fqdn\":\"${i}\""
+        HOST_MAPPING="$HOST_MAPPING {\"fqdn\":\"${i}\"}"
         if [ $COUNTER -lt $CLUSTER_NODE_SIZE ]
           then
             HOST_MAPPING="$HOST_MAPPING,"
             let COUNTER=COUNTER+1
           fi
       done
-      HOST_MAPPING="$HOST_MAPPING } ] }"
-      echo ">>>" $HOST_MAPPING
-      sed -i.bak "s@#NODES@$CLUSTER_DATA_1@g" hostmapping.json
+      HOST_MAPPING="$HOST_MAPPING ] }"
+      #echo ">>>" $HOST_MAPPING
+      sed -i.bak "s@#NODES@$HOST_MAPPING@g" hostmapping.json
   else
       # This is a SINGLE NODE
       echo "Processing Single Node Host Mappings"
@@ -134,8 +135,10 @@ then
   sleep 3s
   if [ "$CLUSTER_SIZE" = 1 ]
   then
+    echo "Using single node blueprint"
     curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_single_node.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
   else
+    echo "Using multi node blueprint"
     curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_multi_node.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
   fi
   sleep 3s
