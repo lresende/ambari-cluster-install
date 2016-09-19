@@ -30,9 +30,9 @@ then
   exit 1
 fi
 
-HOSTS=(bdavm317.svl.ibm.com bdavm318.svl.ibm.com bdavm319.svl.ibm.com bdavm280.svl.ibm.com bdavm281.svl.ibm.com bdavm509.svl.ibm.com)
-#LOCALHOST="$(/bin/hostname -f)"
-#HOSTS=("$LOCALHOST")
+#HOSTS=(bdavm317.svl.ibm.com bdavm318.svl.ibm.com bdavm319.svl.ibm.com bdavm280.svl.ibm.com bdavm281.svl.ibm.com bdavm509.svl.ibm.com)
+LOCALHOST="$(/bin/hostname -f)"
+HOSTS=("$LOCALHOST")
 
 CLUSTER_MASTER=${HOSTS[0]}
 CLUSTER_NODES=${HOSTS[@]:1}

@@ -1,20 +1,26 @@
-# Apache Ambari/IOP Cluster Silent Installer 
+Apache Ambari/IOP Cluster Silent Installer
+==========================================
 
 This is an utility script that helps with installation, deployment, and cleanup of an Apache Ambari Cluster. It uses the IBM IOP 4.1 stack definition and take advantage of Apache Ambari Blueprints to perform silent deployment of the cluster.
 
-## Before you start
+Before you start
+----------------
 
 Clone the repository in the master node of the cluster
+
 ```
 git clone https://github.com/lresende/ambari-cluster-install.git
 cd ambari-cluster-install
 ```
 
-**Update information related to your cluster in iop-cluster.sh :**
+**Update information related to your cluster nodes in iop-cluster.sh :**
 
-Hosts     : A list of FQDN for all cluster nodes
+Hosts : A list of FQDN for all cluster nodes
 
-## Installing Ambary and deploying the cluster 
+Note: By default, the script will install a single node cluster on the current machine
+
+Installing Ambary and deploying the cluster
+-------------------------------------------
 
 Now that we have the cluster information properly configured in the iop-cluster.sh, we can easily install the cluster issuing the following command :
 
@@ -36,7 +42,7 @@ Now the cluster is ready to use. Point your browser to the URL below and loggin 
 http://<master-node>:8081
 ```
 
-
-## Troubleshooting
+Troubleshooting
+---------------
 
 Comming soon.
