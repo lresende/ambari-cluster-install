@@ -12,7 +12,7 @@
                   { "name" : "RESOURCEMANAGER" },
                   { "name" : "APP_TIMELINE_SERVER" },
                   { "name" : "HISTORYSERVER" },
-                  { "name" : "FLUME_HANDLER" },
+                  { "name" : "KAFKA_BROKER" },
                   { "name" : "WEBHCAT_SERVER" },
                   { "name" : "HIVE_SERVER" },
                   { "name" : "HIVE_METASTORE" },
@@ -44,6 +44,7 @@
                 "components": [
                   { "name" : "DATANODE"},
                   { "name" : "NODEMANAGER"},
+                  { "name" : "HBASE_REST_SERVER" },
                   { "name" : "HBASE_REGIONSERVER"},
                   { "name" : "ZOOKEEPER_SERVER" },
 
@@ -97,6 +98,6 @@
         "Blueprints": {
             "blueprint_name": "iop",
             "stack_name": "BigInsights",
-            "stack_version": "4.1"
+            "stack_version": "4.2"
         }
     }

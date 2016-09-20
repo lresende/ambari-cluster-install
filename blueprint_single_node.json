@@ -6,6 +6,7 @@
         { "name" : "OOZIE_SERVER" },
         { "name" : "HBASE_MASTER" },
         { "name" : "HBASE_REGIONSERVER"},
+        { "name" : "HBASE_REST_SERVER"},
         { "name" : "NAMENODE" },
         { "name" : "SECONDARY_NAMENODE" },
         { "name" : "RESOURCEMANAGER" },
@@ -13,7 +14,7 @@
         { "name" : "DATANODE"},
         { "name" : "APP_TIMELINE_SERVER" },
         { "name" : "HISTORYSERVER" },
-        { "name" : "FLUME_HANDLER" },
+        { "name" : "KAFKA_BROKER" },
         { "name" : "WEBHCAT_SERVER" },
         { "name" : "HIVE_SERVER" },
         { "name" : "HIVE_METASTORE" },
@@ -53,12 +54,6 @@
       }
     },
     {
-      "nagios-env" : {
-        "nagios_contact": "admin@localhost.com",
-        "nagios_web_password": "passw0rd"
-      }
-    },
-    {
       "oozie-site" : {
          "oozie.service.JPAService.jdbc.password": "passw0rd"
       }
@@ -77,4 +72,4 @@
   "Blueprints" : {
     "blueprint_name" : "iop",
     "stack_name" : "BigInsights",
-    "stack_version" : "4.1" } }
+    "stack_version" : "4.2" } }
