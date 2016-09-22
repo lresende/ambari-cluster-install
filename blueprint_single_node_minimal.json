@@ -1,0 +1,64 @@
+{ "host_groups" : [
+    { "name" : "master",
+      "components" : [
+        { "name" : "AMBARI_SERVER" },
+        { "name" : "ZOOKEEPER_SERVER" },
+        { "name" : "NAMENODE" },
+        { "name" : "SECONDARY_NAMENODE" },
+        { "name" : "RESOURCEMANAGER" },
+        { "name" : "NODEMANAGER"},
+        { "name" : "DATANODE"},
+        { "name" : "APP_TIMELINE_SERVER" },
+        { "name" : "HISTORYSERVER" },
+        { "name" : "WEBHCAT_SERVER" },
+        { "name" : "HIVE_SERVER" },
+        { "name" : "HIVE_METASTORE" },
+        { "name" : "SPARK_JOBHISTORYSERVER" },
+        { "name" : "SPARK_THRIFTSERVER" },
+        { "name" : "MYSQL_SERVER" },
+        { "name" : "METRICS_MONITOR" },
+
+        { "name": "HCAT"},
+        { "name": "HDFS_CLIENT"},
+        { "name": "YARN_CLIENT"},
+        { "name": "HIVE_CLIENT"},
+        { "name": "SPARK_CLIENT"},
+        { "name": "MAPREDUCE2_CLIENT"},
+        { "name": "ZOOKEEPER_CLIENT"},
+
+        { "name": "METRICS_COLLECTOR"}
+    ],
+      "cardinality" : "1" } ],
+  "configurations": [
+    {
+      "global": {
+        "hive_metastore_user_passwd": "passw0rd"
+      }
+    },
+    {
+      "cluster-env" : {
+        "security_enabled" : "false",
+        "smokeuser" : "ambari-qa",
+        "user_group" : "hadoop"
+      }
+    },
+    {
+      "oozie-site" : {
+         "oozie.service.JPAService.jdbc.password": "passw0rd"
+      }
+    },
+    {
+      "hive-site" : {
+         "javax.jdo.option.ConnectionPassword": "passw0rd"
+      }
+    },
+    {
+      "knox-env" : {
+        "knox_master_secret" : "passw0rd"
+      }
+    }
+  ],
+  "Blueprints" : {
+    "blueprint_name" : "iop",
+    "stack_name" : "BigInsights",
+    "stack_version" : "4.2" } }
