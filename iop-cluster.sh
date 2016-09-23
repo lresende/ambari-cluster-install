@@ -30,6 +30,8 @@ then
   exit 1
 fi
 
+#REPOSITORY=https://ibm-open-platform.ibm.com/repos/Ambari/rhel/7/x86_64/2.2.x/GA/
+
 #HOSTS=(bdavm317.svl.ibm.com bdavm318.svl.ibm.com bdavm319.svl.ibm.com bdavm280.svl.ibm.com bdavm281.svl.ibm.com bdavm509.svl.ibm.com)
 LOCALHOST="$(/bin/hostname -f)"
 HOSTS=("$LOCALHOST")
