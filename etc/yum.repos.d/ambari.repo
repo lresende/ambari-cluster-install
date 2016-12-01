@@ -1,6 +1,6 @@
-[BI_AMBARI-2.2.0-20160616_1658]
-name=ambari-2.2.0-20160616_1658
-baseurl=http://ibm-open-platform.ibm.com/daily/Ambari/RHEL7/x86_64/2.2.0/20160616_1658
+[BI_AMBARI-2.2.0-20161024_1141]
+name=ambari-2.2.0-20161024_1141
+baseurl=http://ibm-open-platform.ibm.com/repos/Ambari/rhel/7/x86_64/2.2.x/Updates/2.2.0_20161024
 enabled=1
 gpgcheck=1
-gpgkey=http://ibm-open-platform.ibm.com/daily/Ambari/RHEL7/x86_64/2.2.0/20160616_1658/BI-GPG-KEY.public
+gpgkey=http://ibm-open-platform.ibm.com/repos/Ambari/rhel/7/x86_64/2.2.x/Updates/2.2.0_20161024/BI-GPG-KEY.public
