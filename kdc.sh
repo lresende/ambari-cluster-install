@@ -22,10 +22,10 @@ LOCALHOST="$(/bin/hostname -f)"
 
 REALM="IBM.COM"
 
-echo -e "\n`ts` Installing kerberos RPMs"
+echo -e "\n Installing kerberos RPMs"
 yum -y install krb5-server krb5-libs krb5-workstation
 
-echo -e "\n`ts` Configuring Kerberos"
+echo -e "\n Configuring Kerberos"
 if [ ! -f /etc/krb5.conf.backup ]; then
     cp /etc/krb5.conf /etc/krb5.conf.backup
 fi
@@ -44,14 +44,14 @@ cp var/kerberos/krb5kdc/kadm5.acl /var/kerberos/krb5kdc/kadm5.acl
 
 kdb5_util create -s
 
-echo -e "\n`ts` Starting KDC services"
+echo -e "\n Starting KDC services"
 service krb5kdc start
 service kadmin start
 chkconfig krb5kdc on
 chkconfig kadmin on
 
-echo -e "\n`ts` Creating admin principal"
+echo -e "\n Creating admin principal"
 kadmin.local -q "addprinc admin/admin"
 
-echo -e "\n`ts` Restarting kadmin"
+echo -e "\n Restarting kadmin"
 service kadmin restart
