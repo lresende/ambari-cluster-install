@@ -30,6 +30,7 @@ if [ ! -f /etc/krb5.conf.backup ]; then
     cp /etc/krb5.conf /etc/krb5.conf.backup
 fi
 cp etc/krb5.conf /etc/krb5.conf
+sed -i.bak "s/kerberos.example.com/$LOCALHOST/g" /etc/krb5.conf
 
 if [ ! -f /var/kerberos/krb5kdc/kdc.conf.backup ]; then
     cp /var/kerberos/krb5kdc/kdc.conf /var/kerberos/krb5kdc/kdc.conf.backup
