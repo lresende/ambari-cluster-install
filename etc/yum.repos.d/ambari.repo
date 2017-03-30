@@ -1,6 +1,6 @@
-[BI_AMBARI-2.2.0-20161024_1141]
-name=ambari-2.2.0-20161024_1141
-baseurl=http://ibm-open-platform.ibm.com/repos/Ambari/rhel/6/x86_64/2.2.x/Updates/2.2.0_20161024
+[BI_AMBARI-2.4.2-20170215_1151]
+name=ambari-2.4.2-20170215_1151
+baseurl=http://ibm-open-platform.ibm.com/extras/milestones/BIGINSIGHTS-4.3-TP2/Ambari/RHEL6/x86_64
 enabled=1
 gpgcheck=1
-gpgkey=http://ibm-open-platform.ibm.com/repos/Ambari/rhel/6/x86_64/2.2.x/Updates/2.2.0_20161024/BI-GPG-KEY.public
+gpgkey=http://ibm-open-platform.ibm.com/extras/milestones/BIGINSIGHTS-4.3-TP2/Ambari/RHEL6/x86_64/BI-GPG-KEY.public
