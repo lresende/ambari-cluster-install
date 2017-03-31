@@ -12,14 +12,16 @@
                   { "name" : "RESOURCEMANAGER" },
                   { "name" : "APP_TIMELINE_SERVER" },
                   { "name" : "HISTORYSERVER" },
-                  { "name" : "KAFKA_BROKER" },
                   { "name" : "WEBHCAT_SERVER" },
                   { "name" : "HIVE_SERVER" },
                   { "name" : "HIVE_METASTORE" },
-                  { "name" : "SPARK_JOBHISTORYSERVER" },
-                  { "name" : "SPARK_THRIFTSERVER" },
+                  { "name" : "SPARK2_JOBHISTORYSERVER" },
+                  { "name" : "SPARK2_THRIFTSERVER" },
                   { "name" : "MYSQL_SERVER" },
                   { "name" : "METRICS_MONITOR" },
+                  { "name" : "METRICS_GRAFANA" },
+                  { "name" : "KNOX_GATEWAY" },
+                  { "name" : "KAFKA_BROKER" },
 
                   { "name": "PIG"},
                   { "name": "HCAT"},
@@ -31,7 +33,7 @@
                   { "name": "HBASE_CLIENT"},
                   { "name": "HBASE_REST_SERVER"},
                   { "name": "OOZIE_CLIENT"},
-                  { "name": "SPARK_CLIENT"},
+                  { "name": "SPARK2_CLIENT"},
                   { "name": "MAPREDUCE2_CLIENT"},
                   { "name": "ZOOKEEPER_CLIENT"},
 
@@ -61,7 +63,7 @@
                   { "name": "MAPREDUCE2_CLIENT"},
                   { "name": "ZOOKEEPER_CLIENT"},
 
-                  { "name": "METRICS_COLLECTOR"}                  
+                  { "name": "METRICS_COLLECTOR"}
                 ],
                 "cardinality": "1"
             }
