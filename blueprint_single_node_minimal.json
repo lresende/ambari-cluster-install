@@ -61,4 +61,5 @@
   "Blueprints" : {
     "blueprint_name" : "iop",
     "stack_name" : "BigInsights",
-    "stack_version" : "4.2" } }
+    "stack_version" : "4.3" }
+}

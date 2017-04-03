@@ -21,6 +21,7 @@
                   { "name" : "METRICS_MONITOR" },
                   { "name" : "METRICS_GRAFANA" },
                   { "name" : "KNOX_GATEWAY" },
+                  { "name" : "KERNEL_GATEWAY" },
                   { "name" : "KAFKA_BROKER" },
 
                   { "name": "PIG"},
@@ -64,8 +65,7 @@
                   { "name": "ZOOKEEPER_CLIENT"},
 
                   { "name": "METRICS_COLLECTOR"}
-                ],
-                "cardinality": "1"
+                ]
             }
         ],
         "configurations": [
@@ -100,6 +100,6 @@
         "Blueprints": {
             "blueprint_name": "iop",
             "stack_name": "BigInsights",
-            "stack_version": "4.2"
+            "stack_version": "4.3"
         }
     }
