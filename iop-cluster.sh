@@ -32,7 +32,7 @@ fi
 
 #REPOSITORY=https://ibm-open-platform.ibm.com/repos/Ambari/rhel/7/x86_64/2.2.x/GA/
 
-#HOSTS=(bdavm317.svl.ibm.com bdavm318.svl.ibm.com bdavm319.svl.ibm.com bdavm280.svl.ibm.com bdavm281.svl.ibm.com bdavm509.svl.ibm.com)
+HOSTS=(9.30.101.127 9.30.101.130 9.30.101.131 9.30.101.133)
 LOCALHOST="$(/bin/hostname -f)"
 HOSTS=("$LOCALHOST")
 
@@ -53,16 +53,16 @@ if [ "$1" = "--all"  -o  "$1" = "--uninstall"  ]
 then
   ambari-server stop
   for i in ${HOSTS[@]}; do
-    ssh root@${i} "ambari-agent stop"
-    ssh -t root@${i} "python /usr/lib/python2.6/site-packages/ambari_commons/host_uninstall.py"
-    ssh root@${i} "rm -rf /etc/yum.repos.d/IOP.repo"
-    ssh root@${i} "rm -rf /etc/yum.repos.d/IOP-UTILS.repo"
-    ssh root@${i} "rm -rf /etc/yum.repos.d/ambari.repo"
-    ssh root@${i} "rm -rf /var/log/ambari-agent"
-    ssh root@${i} "rm -rf /var/log/knox"
-    ssh root@${i} "yum -y remove ambari-agent"
-    ssh root@${i} "rm -rf /etc/ambari-agent"
-    ssh root@${i} "rpm -e ambari-agent"
+    ssh -o StrictHostKeyChecking=no root@${i} "ambari-agent stop"
+    ssh -o StrictHostKeyChecking=no -t root@${i} "python /usr/lib/python2.6/site-packages/ambari_commons/host_uninstall.py"
+    ssh -o StrictHostKeyChecking=no root@${i} "rm -rf /etc/yum.repos.d/IOP.repo"
+    ssh -o StrictHostKeyChecking=no root@${i} "rm -rf /etc/yum.repos.d/IOP-UTILS.repo"
+    ssh -o StrictHostKeyChecking=no root@${i} "rm -rf /etc/yum.repos.d/ambari.repo"
+    ssh -o StrictHostKeyChecking=no root@${i} "rm -rf /var/log/ambari-agent"
+    ssh -o StrictHostKeyChecking=no root@${i} "rm -rf /var/log/knox"
+    ssh -o StrictHostKeyChecking=no root@${i} "yum -y remove ambari-agent"
+    ssh -o StrictHostKeyChecking=no root@${i} "rm -rf /etc/ambari-agent"
+    ssh -o StrictHostKeyChecking=no root@${i} "rpm -e ambari-agent"
   done
   yum -y remove ambari-server
   rm -rf /etc/ambari-server
@@ -92,13 +92,13 @@ then
   # ambari agent setup
   for i in ${HOSTS[@]}; do
     # setup ambari repository
-    ssh root@${i} "yum clean all"
-    cat etc/yum.repos.d/ambari.repo | ssh root@${i} "cat > /etc/yum.repos.d/ambari.repo"
+    ssh -o StrictHostKeyChecking=no root@${i} "yum clean all"
+    cat etc/yum.repos.d/ambari.repo | ssh -o StrictHostKeyChecking=no root@${i} "cat > /etc/yum.repos.d/ambari.repo"
     # ambari agent setup
-    ssh root@${i} "yum -y install ambari-agent"
-    ssh root@${i} "sed -i.bak \"s@hostname=localhost@hostname=$CLUSTER_MASTER@g\" /etc/ambari-agent/conf/ambari-agent.ini"
+    ssh -o StrictHostKeyChecking=no root@${i} "yum -y install ambari-agent"
+    ssh -o StrictHostKeyChecking=no root@${i} "sed -i.bak \"s@hostname=localhost@hostname=$CLUSTER_MASTER@g\" /etc/ambari-agent/conf/ambari-agent.ini"
     # start ambari agent
-    ssh root@${i} "/usr/sbin/ambari-agent start"
+    ssh -o StrictHostKeyChecking=no root@${i} "/usr/sbin/ambari-agent start"
   done
 
 fi
@@ -138,10 +138,10 @@ then
   if [ "$CLUSTER_SIZE" = 1 ]
   then
     echo "Using single node blueprint"
-    curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_single_node.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
+    curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_multi_node_minimal.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
   else
     echo "Using multi node blueprint"
-    curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_multi_node.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
+    curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_multi_node_minimal.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
   fi
   sleep 3s
   curl -H "X-Requested-By: ambari" -X GET -u admin:admin http://localhost:8081/api/v1/blueprints
@@ -177,12 +177,12 @@ if [ "$1" = "--resetdb"  ]
 then
   ambari-server stop
   for i in ${HOSTS[@]}; do
-    ssh root@${i} "ambari-agent stop"
+    ssh -o StrictHostKeyChecking=no root@${i} "ambari-agent stop"
   done
   ambari-server reset --silent
   ambari-server start
   for i in ${HOSTS[@]}; do
-    ssh root@${i} "ambari-agent start"
+    ssh -o StrictHostKeyChecking=no root@${i} "ambari-agent start"
   done
   sleep 3s
   curl -H "X-Requested-By: ambari" -X GET -u admin:admin http://localhost:8081/api/v1/hosts
