@@ -34,7 +34,7 @@ fi
 
 HOSTS=(9.30.101.127 9.30.101.130 9.30.101.131 9.30.101.133)
 LOCALHOST="$(/bin/hostname -f)"
-HOSTS=("$LOCALHOST")
+#HOSTS=("$LOCALHOST")
 
 CLUSTER_MASTER=${HOSTS[0]}
 CLUSTER_NODES=${HOSTS[@]:1}
@@ -46,6 +46,7 @@ echo ">>> Cluster Configuration "
 echo "Cluster Nodes.: ${HOSTS[@]}"
 echo "Master Node...: $CLUSTER_MASTER"
 echo "Data Nodes....: $CLUSTER_NODES"
+echo "Cluster size..: $CLUSTER_NODE_SIZE"
 echo ">>> "
 
 ## Cleanup
@@ -111,7 +112,7 @@ then
   if [ "$CLUSTER_SIZE" -gt 1 ]
   then
       # This is a CLUSTER
-      echo "Processing Cluster Host Mappings "
+      echo "Processing Cluster Host Mappings"
       HOST_MAPPING=", {\"name\": \"slave\", \"hosts\": [ "
       COUNTER=1
       for i in ${CLUSTER_NODES[@]}; do
@@ -138,7 +139,7 @@ then
   if [ "$CLUSTER_SIZE" = 1 ]
   then
     echo "Using single node blueprint"
-    curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_multi_node_minimal.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
+    curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_single_node_minimal.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
   else
     echo "Using multi node blueprint"
     curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_multi_node_minimal.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
