@@ -19,7 +19,6 @@
                   { "name" : "SPARK2_THRIFTSERVER" },
                   { "name" : "MYSQL_SERVER" },
                   { "name" : "METRICS_MONITOR" },
-                  { "name" : "METRICS_GRAFANA" },
                   { "name" : "KNOX_GATEWAY" },
                   { "name" : "KERNEL_GATEWAY" },
                   { "name" : "KAFKA_BROKER" },
@@ -61,6 +60,7 @@
                   { "name": "HBASE_CLIENT"},
                   { "name": "HBASE_REST_SERVER"},
                   { "name": "OOZIE_CLIENT"},
+                  { "name": "SPARK2_CLIENT"},
                   { "name": "MAPREDUCE2_CLIENT"},
                   { "name": "ZOOKEEPER_CLIENT"},
 
@@ -70,31 +70,29 @@
         ],
         "configurations": [
             {
-                "global": {
-                    "hive_metastore_user_passwd": "passw0rd"
-                }
-            },
-            {
                 "cluster-env": {
+                    "properties_attributes": {},
                     "security_enabled": "false",
                     "smokeuser": "ambari-qa",
-                    "user_group": "hadoop"
+                    "user_group": "hadoop",
+                    "properties": {
+                      "ignore_groupsusers_create": "false",
+                      "override_uid": "true"
+                    }
                 }
             },
             {
-                "oozie-site": {
-                    "oozie.service.JPAService.jdbc.password": "passw0rd"
+              "jnbg-env": {
+                "properties_attributes": {},
+                "properties": {
+                  "jkg.log_dir": "/var/log/jnbg",
+                  "jkg.loglevel": "INFO",
+                  "jkg.pid_file": "/var/run/jnbg/server.pid",
+                  "jkg.port": "8888",
+                  "toree.interpreters": "Scala",
+                  "toree.spark_home": "/usr/iop/current/spark2-client"
                 }
-            },
-            {
-                "hive-site": {
-                    "javax.jdo.option.ConnectionPassword": "passw0rd"
-                }
-            },
-            {
-                "knox-env": {
-                    "knox_master_secret": "passw0rd"
-                }
+              }
             }
         ],
         "Blueprints": {

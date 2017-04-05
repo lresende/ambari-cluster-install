@@ -17,7 +17,6 @@
         { "name" : "SPARK2_THRIFTSERVER" },
         { "name" : "MYSQL_SERVER" },
         { "name" : "METRICS_MONITOR" },
-        { "name" : "METRICS_GRAFANA" },
         { "name" : "KNOX_GATEWAY" },
         { "name" : "KERNEL_GATEWAY" },
         { "name" : "KAFKA_BROKER" },
@@ -42,35 +41,33 @@
         { "name": "METRICS_COLLECTOR"}
     ],
       "cardinality" : "1" } ],
-  "configurations": [
-    {
-      "global": {
-        "hive_metastore_user_passwd": "passw0rd"
-      }
-    },
-    {
-      "cluster-env" : {
-        "security_enabled" : "false",
-        "smokeuser" : "ambari-qa",
-        "user_group" : "hadoop"
-      }
-    },
-    {
-      "oozie-site" : {
-         "oozie.service.JPAService.jdbc.password": "passw0rd"
-      }
-    },
-    {
-      "hive-site" : {
-         "javax.jdo.option.ConnectionPassword": "passw0rd"
-      }
-    },
-    {
-      "knox-env" : {
-        "knox_master_secret" : "passw0rd"
-      }
-    }
-  ],
+      "configurations": [
+          {
+              "cluster-env": {
+                  "properties_attributes": {},
+                  "security_enabled": "false",
+                  "smokeuser": "ambari-qa",
+                  "user_group": "hadoop",
+                  "properties": {
+                    "ignore_groupsusers_create": "false",
+                    "override_uid": "true"
+                  }
+              }
+          },
+          {
+            "jnbg-env": {
+              "properties_attributes": {},
+              "properties": {
+                "jkg.log_dir": "/var/log/jnbg",
+                "jkg.loglevel": "INFO",
+                "jkg.pid_file": "/var/run/jnbg/server.pid",
+                "jkg.port": "8888",
+                "toree.interpreters": "Scala",
+                "toree.spark_home": "/usr/iop/current/spark2-client"
+              }
+            }
+          }
+      ],
   "Blueprints" : {
     "blueprint_name" : "iop",
     "stack_name" : "BigInsights",
