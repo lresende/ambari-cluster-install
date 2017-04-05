@@ -32,7 +32,7 @@ fi
 
 #REPOSITORY=https://ibm-open-platform.ibm.com/repos/Ambari/rhel/7/x86_64/2.2.x/GA/
 
-HOSTS=(9.30.101.127 9.30.101.130 9.30.101.131 9.30.101.133)
+HOSTS=(lresende-iop-2.fyre.ibm.com lresende-iop-3.fyre.ibm.com lresende-iop-4.fyre.ibm.com lresende-iop-5.fyre.ibm.com)
 LOCALHOST="$(/bin/hostname -f)"
 #HOSTS=("$LOCALHOST")
 
@@ -139,10 +139,10 @@ then
   if [ "$CLUSTER_SIZE" = 1 ]
   then
     echo "Using single node blueprint"
-    curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_single_node_minimal.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
+    curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_single_node_spark.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
   else
     echo "Using multi node blueprint"
-    curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_multi_node_minimal.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
+    curl -H "X-Requested-By: ambari" -X POST -u admin:admin -d @blueprint_multi_node_spark.json http://localhost:8081/api/v1/blueprints/iop?validate_topology=false
   fi
   sleep 3s
   curl -H "X-Requested-By: ambari" -X GET -u admin:admin http://localhost:8081/api/v1/blueprints
